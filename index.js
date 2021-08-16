@@ -1,67 +1,53 @@
-var variable = require('readline-sync');
-const chalk = require('chalk');
+var readlineSync = require('readline-sync');
 
-
-
-var username = variable.question('what is your name ? ');
-
-console.log(chalk.blue("welcome",username,"lets play"));
-
-
+var userName = readlineSync.question('What is your name ? ');
+console.log('Hello '+ userName + '! Welcome to DO YOU KNOW ME QUIZ');
+console.log('---------------------------------------------------');
+console.log('NOTE:');
+console.log('You get +1 for each right answer and -1 for each wrong answer');
+console.log('---------------------------------------------------');
 
 var score = 0;
 
-var highestScore = 0
-const warning=chalk.red;
-const welcome=chalk.green;
-const endgame=chalk.yellow;
-
-function playGAme(question,answer){
-  var Userans = variable.question(question);
-
-  if (Userans === answer){
-    console.log(welcome('you are right! '));
-    score = score+ 1;
-  }else{
-    console.log(warning('oops! its wrong'));
-
+function play(question,answer){
+  var userAnswer = readlineSync.question(question)
+  
+  if(userAnswer === answer){
+    console.log('You are right!');
+    score = score+1;
+  }
+  else{
+    console.log('You are wrong! Right answer was '+ answer);
+    score = score-1;
   }
 
+  console.log('Current score : '+ score);
+  console.log('----------------------------------')
 }
 
-playGAme("What is my name ?  ","shubham");
-
-console.log(welcome("Your Final Score",score));
-
-
-playGAme("what is my last name ? ","bishnoi");
-
-console.log(welcome("Your Final Score",score));
 
 var questions = [{
-  question : "What Is my age ?  ",
-  answer : "22"
-},
-{
-  question : "what is my fav color ?  ",
-  answer : "orange"
-}];
+  question: "How old am I? ",
+  answer: "22"
+}, {
+  question: "Which is my favourite game? ",
+  answer: "cricket"
+}, {
+  question: "Which college I went to for BTech? ",
+  answer: "vit"
+}, {
+  question: "Which state I live in? ",
+  answer: "rajasthan"
+}, {
+  question: "which is my favourite color?",
+  answer: "orange"
+}]
 
-
-for (var i=0 ; i<questions.length ; i++){
-
-    var currentQues = questions[i];
-    playGAme(currentQues.question,currentQues.answer)
+for(var i=0; i<questions.length; i++ ){
+  var currentQuestion = questions[i];
+  
+  play(currentQuestion.question,currentQuestion.answer)
 
 }
 
-console.log(welcome("Your Final Score",score));
-
-if(Number(score)>highestScore){
-  console.log(welcome("Congrats! You have broken previous record ",highestScore))
-  highestScore = score
-}else if(score===highestScore){
-  console.log(endgame("You have tied with previous record ",highestScore))
-}else{
-  console.log(warning("You have below highest score",highestScore))
-}
+console.log('YAY! You scored: ' + score);
